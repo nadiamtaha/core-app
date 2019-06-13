@@ -1,0 +1,73 @@
+<div class="row">
+   <div class="col-md-12">
+      <div class="card">
+      <ngb-tabset class="card-tab">
+        <ngb-tab title="Manual">
+          <ng-template ngbTabContent>
+              <div class="card">
+             
+                  <div class="table-responsive">
+                    <table class="table table-bordered table-striped mb-0">
+                      <thead>
+                        <tr>
+                          <th>
+                            Name
+                          </th>
+                          <th>
+                            Phone
+                          </th>
+                          <th>
+                            Email
+                          </th>
+                          <th>
+                            
+                          </th>
+                        </tr>
+                      </thead>
+                     
+                      <tbody>
+                        <tr *ngFor="let number of [0,1,2,3,4,5,6]">
+                          <td>
+                            name {{number}}
+                          </td>
+                          <td>
+                            phone {{number}}
+                          </td>
+                          <td>
+                            email {{number}}
+                          </td>
+                          <td class="text-center">
+                            <input class="w-25" type="checkbox" >
+                          </td>
+                        </tr>
+                   
+                      </tbody>
+                    </table>
+                  </div>
+              </div>
+              <button class="btn btn-primary mt-2 float-right">check in</button>
+
+          </ng-template>
+        </ngb-tab>
+        <ngb-tab title="Camera">
+          <ng-template ngbTabContent>
+            <div class="card card-body mb-0 pb-0">
+              <div class="row">
+                <div class="media-tile media-tile-footer col-lg-3 col-sm-6" *ngFor="let id of images">
+                  <figure>
+                    <img src="assets/images/unsplash/{{id}}.jpg" alt="Card image cap" class="img-fluid" />
+                    <figcaption>
+                      <h6 class="media-title fw-300">{{ id }}</h6>
+                      <small class="media-subtitle">Tile image {{ id }}</small>
+                    </figcaption>
+                  </figure>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+        </ngb-tab>
+      </ngb-tabset>
+    </div>
+   </div>
+
+</div>
