@@ -14,4 +14,5 @@ import { DashboardRoutes } from './dashboard.routing';
   ],
   declarations: [DashboardComponent]
 })
+
 export class DashboardModule {}
