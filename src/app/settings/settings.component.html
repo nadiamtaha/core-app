@@ -1,3 +1,267 @@
-<p>
-  settings works!
-</p>
+<!-- <div class="row">
+  <div class="col-md-12">
+     <div class="card">
+
+     
+            
+             <div class="card">
+                <div class="card-header">
+                  <h2>Users List</h2>
+                </div>
+                <div class="add-btn-container">
+                    <button class="btn btn-primary my-3" (click)="handleEvent($event.event)">ADD</button>
+                  </div>
+                 <div class="table-responsive">
+                   <table class="table table-bordered table-striped mb-0">
+                     <thead>
+                       <tr>
+                         <th>
+                           Name
+                         </th>
+                         <th>
+                           Phone
+                         </th>
+                         <th>
+                           Email
+                         </th>
+                         <th>
+                           
+                         </th>
+                       </tr>
+                     </thead>
+                    
+                     <tbody>
+                       <tr *ngFor="let number of [0,1,2,3,4,5,6]">
+                         <td>
+                           name {{number}}
+                         </td>
+                         <td>
+                           phone {{number}}
+                         </td>
+                         <td>
+                           email {{number}}
+                         </td>
+                         <td class="text-center">
+                           <button class="btn btn-danger">delete</button>
+                         </td>
+                       </tr>
+                  
+                     </tbody>
+                   </table>
+                 </div>
+             </div>
+            
+    
+   </div>
+  </div>
+ 
+</div> -->
+<ng-template #modalContent let-close="close">
+    <div class="modal-header">
+      <h3 class="modal-title">Add Session</h3>
+      <button type="button" class="close" (click)="close()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+        <div class="d-flex justify-content-center align-items-center h-100">
+           
+              <div class="card-body">
+                
+                <form class="w-75 m-auto" [formGroup]="form" (ngSubmit)="onSubmit()">
+                  <fieldset class="form-group mb-4" [ngClass]="{'has-danger': form.controls['sdescription'].hasError('required') && form.controls['sdescription'].touched}">
+                    <textarea type="text" class="form-control" placeholder="Enter Description" [formControl]="form.controls['sdescription']"
+                      [ngClass]="{'form-control-danger': form.controls['sdescription'].hasError('required') && form.controls['sdescription'].touched}" ></textarea>
+                   
+                  </fieldset>
+                  <fieldset class="form-group mb-4" [ngClass]="{'has-danger': form.controls['slocation'].hasError('required') && form.controls['slocation'].touched}">
+                
+                    <input type="text" class="form-control" placeholder="Enter Location" [formControl]="form.controls['slocation']"
+                      [ngClass]="{'form-control-danger': form.controls['slocation'].hasError('required') && form.controls['slocation'].touched}" />
+        
+                  </fieldset>
+                  <fieldset class="form-group mb-4" [ngClass]="{'has-danger': form.controls['stime'].hasError('required') && form.controls['stime'].touched}">
+                      <input type="text" class="form-control" placeholder="Enter Time" [formControl]="form.controls['stime']"
+                        [ngClass]="{'form-control-danger': form.controls['stime'].hasError('required') && form.controls['stime'].touched}" />
+                      
+                  </fieldset>
+                  <fieldset class="form-group mb-4" [ngClass]="{'has-danger': form.controls['sgear'].hasError('required') && form.controls['sgear'].touched}">
+                      <input type="text" class="form-control" placeholder="Enter Gear" [formControl]="form.controls['sgear']"
+                        [ngClass]="{'form-control-danger': form.controls['sgear'].hasError('required') && form.controls['sgear'].touched}" />
+                  
+                  </fieldset>
+                  <fieldset class="form-group mb-4" [ngClass]="{'has-danger': form.controls['strainer'].hasError('required') && form.controls['strainer'].touched}">
+                      <select type="text" class="form-control" [formControl]="form.controls['strainer']"
+                        [ngClass]="{'form-control-danger': form.controls['strainer'].hasError('required') && form.controls['strainer'].touched}" >
+                         <option>trainer 1</option>
+                         <option>trainer 2</option>
+                         <option>trainer 3</option>
+                      </select>
+                  
+                  </fieldset>
+                  <div class="modal-footer d-flex justify-content-center">
+                    <button class="btn btn-primary px-3" (click)="close()" type="submit" [disabled]="!form.valid">Add session</button>
+                  </div>
+                 
+                </form>
+              </div>
+            
+            <div class="bg-cover"></div>
+          </div>
+          
+    </div>
+
+</ng-template>
+<div class="row">
+  <div class="col-md-12">
+     <div class="card">
+     <ngb-tabset class="card-tab">
+       <!-- <ngb-tab title="Fitness Level">
+         <ng-template ngbTabContent>
+             <div class="card">
+              <div class="add-btn-container">
+                <button class="btn btn-primary my-3" (click)="handleEvent($event.event)">ADD</button>
+              </div>
+                 <div class="table-responsive">
+                   <table class="table table-bordered table-striped mb-0">
+                     <thead>
+                       <tr>
+                         <th>
+                           Name
+                         </th>
+                         <th>
+                           Phone
+                         </th>
+                         <th>
+                           Email
+                         </th>
+                         <th>
+                           
+                         </th>
+                       </tr>
+                     </thead>
+                    
+                     <tbody>
+                       <tr *ngFor="let number of [0,1,2,3,4,5,6]">
+                         <td>
+                           name {{number}}
+                         </td>
+                         <td>
+                           phone {{number}}
+                         </td>
+                         <td>
+                           email {{number}}
+                         </td>
+                         <td class="text-center">
+                           <input class="w-25" type="checkbox" >
+                         </td>
+                       </tr>
+                  
+                     </tbody>
+                   </table>
+                 </div>
+             </div>
+             <button class="btn btn-primary mt-2 float-right">check in</button>
+
+         </ng-template>
+       </ngb-tab> -->
+       <ngb-tab title="Sessions You Prefer">
+         <ng-template ngbTabContent>
+           <div class="card card-body mb-0 pb-0">
+              <div class="add-btn-container">
+                  <button class="btn btn-primary my-3" (click)="handleEvent($event.event)">ADD</button>
+              </div>
+              <div class="table-responsive">
+                  <table class="table table-bordered table-striped mb-0">
+                    <thead>
+                      <tr>
+                        <th>
+                          Name
+                        </th>
+                        <th>
+                          Time
+                        </th>
+                        <th>
+                          Date
+                        </th>
+                        <th>
+                          
+                        </th>
+                      </tr>
+                    </thead>
+                   
+                    <tbody>
+                      <tr *ngFor="let number of [0,1,2]">
+                        <td>
+                          name {{number}}
+                        </td>
+                        <td>
+                          time {{number}}
+                        </td>
+                        <td>
+                          date {{number}}
+                        </td>
+                        <td class="text-center">
+                            <button class="btn btn-danger">delete</button>
+                        </td>
+                      </tr>
+                 
+                    </tbody>
+                  </table>
+              </div>
+           </div>
+         </ng-template>
+       </ngb-tab>
+       <ngb-tab title="Sessions">
+        <ng-template ngbTabContent>
+            <div class="card">
+                <div class="add-btn-container">
+                    <button class="btn btn-primary my-3" (click)="handleEvent($event.event)">ADD</button>
+                  </div>
+                  <div class="table-responsive">
+                      <table class="table table-bordered table-striped mb-0">
+                        <thead>
+                          <tr>
+                            <th>
+                              Name
+                            </th>
+                            <th>
+                              Time
+                            </th>
+                            <th>
+                              Date
+                            </th>
+                            <th>
+                              
+                            </th>
+                          </tr>
+                        </thead>
+                       
+                        <tbody>
+                          <tr *ngFor="let number of [0,1,2,3,4,5,6]">
+                            <td>
+                              name {{number}}
+                            </td>
+                            <td>
+                              time {{number}}
+                            </td>
+                            <td>
+                              date {{number}}
+                            </td>
+                            <td class="text-center">
+                                <button class="btn btn-danger">delete</button>
+                            </td>
+                          </tr>
+                     
+                        </tbody>
+                      </table>
+                  </div>
+            </div>
+
+        </ng-template>
+      </ngb-tab>
+     </ngb-tabset>
+   </div>
+  </div>
+
+</div>

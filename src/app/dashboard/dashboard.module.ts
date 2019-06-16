@@ -10,7 +10,7 @@ import { DashboardRoutes } from './dashboard.routing';
   imports: [
     CommonModule,
     RouterModule.forChild(DashboardRoutes),
-    AgmCoreModule.forRoot({ apiKey: 'AIzaSyAZ8ER-y3lU1FrZ8LyXdyhvFTehXVVfovM' })
+    AgmCoreModule.forRoot({ apiKey: 'AIzaSyDumNjBS8OwLor6tLjgjg5P7bDAEyl4Xa0' })
   ],
   declarations: [DashboardComponent]
 })

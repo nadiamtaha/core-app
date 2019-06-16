@@ -6,27 +6,27 @@ import { Component } from '@angular/core';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent {
-  lat = -34.397;
-  lng = 150.644;
+  lat: number = 31.205753  ;
+  lng: number = 29.924526;
   latA = -34.754764;
   lngA = 149.736246;
   zoom = 8;
   markers: marker[] = [
 	  {
-		  lat: -34.397,
-		  lng: 150.644,
+		  lat: 31.205753,
+		  lng: 29.924526,
 		  label: 'A',
 		  draggable: true
 	  },
 	  {
-		  lat: -34.373858,
-		  lng: 150.215982,
+		  lat: 30.60427,
+		  lng: 32.27225,
 		  label: 'B',
 		  draggable: false
 	  },
 	  {
-		  lat: -34.723858,
-		  lng: 150.895982,
+		  lat: 29.205753,
+		  lng: 27.924526,
 		  label: 'C',
 		  draggable: true
 	  }
