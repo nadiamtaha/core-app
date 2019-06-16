@@ -52,16 +52,46 @@
         <ngb-tab title="Camera">
           <ng-template ngbTabContent>
             <div class="card card-body mb-0 pb-0">
-              <div class="row">
-                <div class="media-tile media-tile-footer col-lg-3 col-sm-6" *ngFor="let id of images">
-                  <figure>
-                    <img src="assets/images/unsplash/{{id}}.jpg" alt="Card image cap" class="img-fluid" />
-                    <figcaption>
-                      <h6 class="media-title fw-300">{{ id }}</h6>
-                      <small class="media-subtitle">Tile image {{ id }}</small>
-                    </figcaption>
-                  </figure>
+              <div class="row justify-content-center">
+              
+                <zxing-scanner class="test-class" start="true" (scanSuccess)="handleQrCodeResult($event)"></zxing-scanner>
+                <p>
+                  Result:
+                  <strong>{{ qrResultString }}</strong>
+                </p>
+                <!-- <div [hidden]="!hasCameras">
+                
+                
+                  <h2 *ngIf="!this.selectedDevice">No camera selected.</h2>
+                
+                  <p>
+                    Result:
+                    <strong>{{ qrResultString }}</strong>
+                  </p>
+                
                 </div>
+                
+                <div *ngIf="!hasCameras && hasPermission === true">
+                
+                  <h1>Looks like your actual device does not has cameras, or I could no find'em. </h1>
+                
+                </div>
+                
+                <div *ngIf="hasPermission === undefined">
+                
+                  <h1>Waiting for permissions.</h1>
+                
+                  <blockquote>
+                    <h2>If your device does not has cameras, no permissions will be asked.</h2>
+                  </blockquote>
+                
+                </div>
+                
+                <div *ngIf="hasPermission === false">
+                
+                  <h1>You denied the camera permissions, we can't scan anything without it. 😪</h1>
+                
+                </div> -->
               </div>
             </div>
           </ng-template>

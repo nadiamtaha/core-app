@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-
+import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
 
 import {
@@ -16,6 +16,7 @@ import { UserCheckinRoutes } from './user-checkin.routing';
 @NgModule({
   imports: [
     CommonModule,
+    ZXingScannerModule,
     RouterModule.forChild(UserCheckinRoutes),
     NgbAccordionModule,
     NgbProgressbarModule,
