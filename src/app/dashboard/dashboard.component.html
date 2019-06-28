@@ -3,7 +3,7 @@
     <div class="col-md-12">
       <div class="card">
         <div class="card-body p-0">
-            <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
+            <agm-map [latitude]="lat" [longitude]="lng" [styles]="styles" [zoom]="zoom">
                 <agm-marker 
       *ngFor="let m of markers; let i = index"
       (markerClick)="clickedMarker(m.label, i)"

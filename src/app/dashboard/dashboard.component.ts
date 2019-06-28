@@ -1,73 +1,110 @@
-import { Component } from '@angular/core';
+import { Component,OnInit } from '@angular/core';
+import { MapService } from './map.service';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent {
+export class DashboardComponent implements OnInit {
+  constructor(private _mapService: MapService) { }
+  markers:object=[];
+  ngOnInit() {
+    this._mapService.getAllMapMarkers().subscribe(
+      (markers) => {
+        this.markers = markers;
+       
+        console.log(this.markers)
+      }
+    );
+  }
+
   lat: number = 31.205753  ;
   lng: number = 29.924526;
   latA = -34.754764;
   lngA = 149.736246;
   zoom = 8;
-  markers: marker[] = [
-	  {
-		  lat: 31.205753,
-		  lng: 29.924526,
-		  label: 'A',
-		  draggable: true
-	  },
-	  {
-		  lat: 30.60427,
-		  lng: 32.27225,
-		  label: 'B',
-		  draggable: false
-	  },
-	  {
-		  lat: 29.205753,
-		  lng: 27.924526,
-		  label: 'C',
-		  draggable: true
-	  }
-  ]
+  
 
 
   styles: any = [
     {
-      featureType: 'all',
-      stylers: [
-        {
-          saturation: -80
-        }
-      ]
+        "featureType": "administrative",
+        "elementType": "labels.text.fill",
+        "stylers": [
+            {
+                "color": "#444444"
+            }
+        ]
     },
     {
-      featureType: 'road.arterial',
-      elementType: 'geometry',
-      stylers: [
-        {
-          hue: '#00ffee'
-        },
-        {
-          saturation: 50
-        }
-      ]
+        "featureType": "landscape",
+        "elementType": "all",
+        "stylers": [
+            {
+                "color": "#cea176"
+            }
+        ]
     },
     {
-      featureType: 'poi.business',
-      elementType: 'labels',
-      stylers: [
-        {
-          visibility: 'off'
-        }
-      ]
+        "featureType": "poi",
+        "elementType": "all",
+        "stylers": [
+            {
+                "visibility": "off"
+            }
+        ]
+    },
+    {
+        "featureType": "road",
+        "elementType": "all",
+        "stylers": [
+            {
+                "saturation": -100
+            },
+            {
+                "lightness": 45
+            }
+        ]
+    },
+    {
+        "featureType": "road.highway",
+        "elementType": "all",
+        "stylers": [
+            {
+                "visibility": "simplified"
+            }
+        ]
+    },
+    {
+        "featureType": "road.arterial",
+        "elementType": "labels.icon",
+        "stylers": [
+            {
+                "visibility": "off"
+            }
+        ]
+    },
+    {
+        "featureType": "transit",
+        "elementType": "all",
+        "stylers": [
+            {
+                "visibility": "off"
+            }
+        ]
+    },
+    {
+        "featureType": "water",
+        "elementType": "all",
+        "stylers": [
+            {
+                "color": "#697780"
+            },
+            {
+                "visibility": "on"
+            }
+        ]
     }
-  ];
-}
-interface marker {
-	lat: number;
-	lng: number;
-	label?: string;
-	draggable: boolean;
+ ]
 }

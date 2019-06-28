@@ -2,12 +2,23 @@
    <div class="col-md-12">
       <div class="card">
       <ngb-tabset class="card-tab">
+        
+         
         <ngb-tab title="Manual">
           <ng-template ngbTabContent>
+            
               <div class="card">
-             
-                  <div class="table-responsive">
-                    <table class="table table-bordered table-striped mb-0">
+                  <form class="my-2 form-inline justify-content-end">
+                      <label  for="inlineFormCustomSelect">Sessions</label>
+                     
+                      <select name="session" (change)="onSessionChange($event.target.value)" class="custom-select w-15 ml-2" id="inlineFormCustomSelect">                   
+                        <option  *ngFor="let session of sessions" [value]="session.id">{{session.name}}</option>
+                        
+                      </select>
+                  </form>
+  
+                  <div *ngIf="users.data&&users.data.length>0" class="table-responsive">
+                    <table  class="table table-bordered table-striped mb-0">
                       <thead>
                         <tr>
                           <th>
@@ -26,74 +37,62 @@
                       </thead>
                      
                       <tbody>
-                        <tr *ngFor="let number of [0,1,2,3,4,5,6]">
+                        <tr *ngFor="let user of users.data">
                           <td>
-                            name {{number}}
+                            {{user.profile.first_name }} {{user.profile.last_name}}
                           </td>
                           <td>
-                            phone {{number}}
+                            {{user.profile.mobile}}
                           </td>
                           <td>
-                            email {{number}}
+                            {{user.profile.email}}
                           </td>
                           <td class="text-center">
-                            <input class="w-25" type="checkbox" >
+                            <input type="checkbox" (change)="addUserId($event,user)" >
                           </td>
                         </tr>
-                   
+                        
                       </tbody>
                     </table>
+                    <div class="pagination-container justify-content-center mt-3">
+                      <ngb-pagination
+                      (pageChange)="loadPageData($event)"
+                      [(page)]="page"
+                      [pageSize]="pageSize"
+                      [collectionSize]="users.total"></ngb-pagination>
+                    </div>
+                  </div>
+                  <div class="no-data" *ngIf="users.data&&users.data.length==0">
+                    There Is No Data To Show
                   </div>
               </div>
-              <button class="btn btn-primary mt-2 float-right">check in</button>
+              <button (click)="checkInUserManually()" class="btn custom-btn mt-2 float-right">check in</button>
 
           </ng-template>
         </ngb-tab>
         <ngb-tab title="Camera">
           <ng-template ngbTabContent>
             <div class="card card-body mb-0 pb-0">
-              <div class="row justify-content-center">
-              
-                <zxing-scanner class="test-class" start="true" (scanSuccess)="handleQrCodeResult($event)"></zxing-scanner>
-                <p>
-                  Result:
-                  <strong>{{ qrResultString }}</strong>
-                </p>
-                <!-- <div [hidden]="!hasCameras">
+              <div class="text-center">
+                  <div>
+     
+                      <h3>Result: {{ qrResultString }}</h3>
+                  </div>
+                  <div id="qrcodeid" class="justify-content-center d-flex">
+                      <qr-code-all [canvasWidth]="640"
+                          [canvasHeight]="480"
+                          [debug]="false"
+                          [stopAfterScan]="true"
+                          [updateTime]="500"
+                          (onCapture)="scanQrCode($event)"
+                          [scanQrCode]="true">
+                      </qr-code-all>
+                  </div>
                 
-                
-                  <h2 *ngIf="!this.selectedDevice">No camera selected.</h2>
-                
-                  <p>
-                    Result:
-                    <strong>{{ qrResultString }}</strong>
-                  </p>
-                
-                </div>
-                
-                <div *ngIf="!hasCameras && hasPermission === true">
-                
-                  <h1>Looks like your actual device does not has cameras, or I could no find'em. </h1>
-                
-                </div>
-                
-                <div *ngIf="hasPermission === undefined">
-                
-                  <h1>Waiting for permissions.</h1>
-                
-                  <blockquote>
-                    <h2>If your device does not has cameras, no permissions will be asked.</h2>
-                  </blockquote>
-                
-                </div>
-                
-                <div *ngIf="hasPermission === false">
-                
-                  <h1>You denied the camera permissions, we can't scan anything without it. 😪</h1>
-                
-                </div> -->
               </div>
             </div>
+            <button (click)="checkInUserByScanning()" class="btn custom-btn mt-2 float-right">check in</button>
+
           </ng-template>
         </ngb-tab>
       </ngb-tabset>

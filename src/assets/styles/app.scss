@@ -16,9 +16,29 @@ $app-theme: mat-light-theme($app-primary, $app-accent);
 @import "scss/custom-bootstrap";
 @import "scss/core";
 .card{
-    padding: 20px
+    padding: 20px;
+    .no-data{
+        text-align: center
+     }
 }
 .add-btn-container{
     text-align: right
 }
 .form-control-danger{color:#ff0}
+.custom-btn{
+    background-color: #CEA176;
+    border-color: #CEA176;
+    color:#fff
+}
+.pagination-container{
+    display: flex
+ }
+ 
+ .w-15{
+    width: 15%
+ }
+ @media screen and (max-width: 600px) {
+    .table th, .table td {
+       padding: 0.75rem 0.15rem;
+    }
+}

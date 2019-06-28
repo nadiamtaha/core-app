@@ -4,12 +4,7 @@ import { UserManagementComponent } from './user-management.component';
 import { UserManagementRoutes } from './user-management.routing';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
-import {
-  NgbProgressbarModule,
-  NgbTabsetModule
-} from '@ng-bootstrap/ng-bootstrap';
-
+import {  NgbProgressbarModule,NgbTabsetModule, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   imports: [
@@ -18,7 +13,8 @@ import {
     NgbProgressbarModule,
     NgbTabsetModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgbPaginationModule
   ],
   declarations: [UserManagementComponent]
 })
