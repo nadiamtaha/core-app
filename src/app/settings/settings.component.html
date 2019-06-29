@@ -68,39 +68,41 @@
            
               <div class="card-body">
                 
-                <form class="w-75 m-auto" [formGroup]="form" (ngSubmit)="onSubmit()">
-                  <fieldset class="form-group mb-4" [ngClass]="{'has-danger': form.controls['sdescription'].hasError('required') && form.controls['sdescription'].touched}">
-                    <textarea type="text" class="form-control" placeholder="Enter Description" [formControl]="form.controls['sdescription']"
-                      [ngClass]="{'form-control-danger': form.controls['sdescription'].hasError('required') && form.controls['sdescription'].touched}" ></textarea>
+                <form class="w-75 m-auto" [formGroup]="form">
+                  <fieldset class="form-group mb-4" [ngClass]="{'has-danger': form.controls['name'].hasError('required') && form.controls['name'].touched}">
+                    <textarea type="text" class="form-control" placeholder="Enter Description" [formControl]="form.controls['name']"
+                      [ngClass]="{'form-control-danger': form.controls['name'].hasError('required') && form.controls['name'].touched}" ></textarea>
                    
                   </fieldset>
-                  <fieldset class="form-group mb-4" [ngClass]="{'has-danger': form.controls['slocation'].hasError('required') && form.controls['slocation'].touched}">
+                  <fieldset class="form-group mb-4" [ngClass]="{'has-danger': form.controls['location_id'].hasError('required') && form.controls['location_id'].touched}">
                 
-                    <input type="text" class="form-control" placeholder="Enter Location" [formControl]="form.controls['slocation']"
-                      [ngClass]="{'form-control-danger': form.controls['slocation'].hasError('required') && form.controls['slocation'].touched}" />
+                    <select type="text" class="form-control" [formControl]="form.controls['location_id']"
+                    [ngClass]="{'form-control-danger': form.controls['location_id'].hasError('required') && form.controls['location_id'].touched}" >
+                     <option value = "" disabled>Select location</option>
+                     <option [value]="location.id" *ngFor="let location of locations">{{location.name}}</option>
+                  </select>
         
                   </fieldset>
-                  <fieldset class="form-group mb-4" [ngClass]="{'has-danger': form.controls['stime'].hasError('required') && form.controls['stime'].touched}">
-                      <input type="text" class="form-control" placeholder="Enter Time" [formControl]="form.controls['stime']"
-                        [ngClass]="{'form-control-danger': form.controls['stime'].hasError('required') && form.controls['stime'].touched}" />
+                  <fieldset class="form-group mb-4" [ngClass]="{'has-danger': form.controls['time'].hasError('required') && form.controls['time'].touched}">
+                      <input type="text" class="form-control" placeholder="Enter Time" [formControl]="form.controls['time']"
+                        [ngClass]="{'form-control-danger': form.controls['time'].hasError('required') && form.controls['time'].touched}" />
                       
                   </fieldset>
-                  <fieldset class="form-group mb-4" [ngClass]="{'has-danger': form.controls['sgear'].hasError('required') && form.controls['sgear'].touched}">
-                      <input type="text" class="form-control" placeholder="Enter Gear" [formControl]="form.controls['sgear']"
-                        [ngClass]="{'form-control-danger': form.controls['sgear'].hasError('required') && form.controls['sgear'].touched}" />
+                  <fieldset class="form-group mb-4" [ngClass]="{'has-danger': form.controls['gear'].hasError('required') && form.controls['gear'].touched}">
+                      <input type="text" class="form-control" placeholder="Enter Gear" [formControl]="form.controls['gear']"
+                        [ngClass]="{'form-control-danger': form.controls['gear'].hasError('required') && form.controls['gear'].touched}" />
                   
                   </fieldset>
-                  <fieldset class="form-group mb-4" [ngClass]="{'has-danger': form.controls['strainer'].hasError('required') && form.controls['strainer'].touched}">
-                      <select type="text" class="form-control" [formControl]="form.controls['strainer']"
-                        [ngClass]="{'form-control-danger': form.controls['strainer'].hasError('required') && form.controls['strainer'].touched}" >
-                         <option>trainer 1</option>
-                         <option>trainer 2</option>
-                         <option>trainer 3</option>
+                  <fieldset class="form-group mb-4" [ngClass]="{'has-danger': form.controls['trainer_id'].hasError('required') && form.controls['trainer_id'].touched}">
+                      <select type="text" class="form-control" [formControl]="form.controls['trainer_id']"
+                        [ngClass]="{'form-control-danger': form.controls['trainer_id'].hasError('required') && form.controls['trainer_id'].touched}" >
+                         <option value = "" disabled>Select trainer</option>
+                         <option [value]="trainer.profile.id" *ngFor="let trainer of trainers">{{trainer.profile.name}}</option>
                       </select>
                   
                   </fieldset>
                   <div class="modal-footer d-flex justify-content-center">
-                    <button class="btn custom-btn px-3" (click)="close()" type="submit" [disabled]="!form.valid">Add session</button>
+                    <button class="btn custom-btn px-3" (click)="onSubmitSession(form)" type="submit" [disabled]="!form.valid">Add session</button>
                   </div>
                  
                 </form>
@@ -110,6 +112,57 @@
           </div>
           
     </div>
+
+</ng-template>
+<ng-template #modalContent2 let-close="close">
+  <div class="modal-header">
+    <h3 class="modal-title">Add Trainer</h3>
+    <button type="button" class="close" (click)="close()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+      <div class="d-flex justify-content-center align-items-center h-100">
+         
+            <div class="card-body">
+              
+              <form class="w-75 m-auto" [formGroup]="form1">
+        
+                <fieldset class="form-group mb-4" [ngClass]="{'has-danger': form1.controls['name'].hasError('required') && form1.controls['name'].touched}">
+                    <input type="text" class="form-control" placeholder="Enter Name" [formControl]="form1.controls['name']"
+                      [ngClass]="{'form-control-danger': form1.controls['name'].hasError('required') && form1.controls['name'].touched}" />
+                
+                </fieldset>
+                <fieldset class="form-group mb-4" [ngClass]="{'has-danger': form1.controls['dob'].hasError('required') && form1.controls['dob'].touched}">
+                    <input type="text" class="form-control" placeholder="Enter Date of birth" [formControl]="form1.controls['dob']"
+                      [ngClass]="{'form-control-danger': form1.controls['dob'].hasError('required') && form1.controls['dob'].touched}" />
+                
+                </fieldset>
+                <fieldset class="form-group mb-4" [ngClass]="{'has-danger': form1.controls['description'].hasError('required') && form1.controls['description'].touched}">
+                    <input type="text" class="form-control" placeholder="Enter Description" [formControl]="form1.controls['description']"
+                      [ngClass]="{'form-control-danger': form1.controls['description'].hasError('required') && form1.controls['description'].touched}" />
+                
+                </fieldset>
+                <!-- <fieldset class="form-group mb-4" [ngClass]="{'has-danger': form.controls['strainer'].hasError('required') && form.controls['strainer'].touched}">
+                    <select type="text" class="form-control" [formControl]="form.controls['strainer']"
+                      [ngClass]="{'form-control-danger': form.controls['strainer'].hasError('required') && form.controls['strainer'].touched}" >
+                       <option>trainer 1</option>
+                       <option>trainer 2</option>
+                       <option>trainer 3</option>
+                    </select>
+                
+                </fieldset> -->
+                <div class="modal-footer d-flex justify-content-center">
+                  <button class="btn custom-btn px-3" (click)="onSubmit(form1)" type="submit" [disabled]="!form1.valid">Add trainer</button>
+                </div>
+               
+              </form>
+            </div>
+          
+          <div class="bg-cover"></div>
+        </div>
+        
+  </div>
 
 </ng-template>
 <div class="row">
@@ -169,7 +222,7 @@
          <ng-template ngbTabContent>
            <div class="card card-body mb-0 pb-0">
               <div class="add-btn-container">
-                  <button class="btn custom-btn my-3" (click)="handleEvent($event.event)">ADD</button>
+                  <button class="btn custom-btn my-3" (click)="handleEvent2($event.event)">ADD</button>
               </div>
               <div class="table-responsive">
                   <table class="table table-bordered table-striped mb-0">
@@ -177,9 +230,6 @@
                       <tr>
                         <th>
                           Name
-                        </th>
-                        <th>
-                          Time
                         </th>
                         <th>
                           Date
@@ -191,18 +241,15 @@
                     </thead>
                    
                     <tbody>
-                      <tr *ngFor="let number of [0,1,2]">
+                      <tr *ngFor="let trainer of trainers; let i = index">
                         <td>
-                          name {{number}}
+                          {{trainer.profile.name}}
                         </td>
                         <td>
-                          time {{number}}
-                        </td>
-                        <td>
-                          date {{number}}
+                          {{trainer.profile.dob}}
                         </td>
                         <td class="text-center">
-                            <button class="btn btn-danger">delete</button>
+                            <button class="btn btn-danger" (click)="delete_trainer(trainer.profile.id, i)">delete</button>
                         </td>
                       </tr>
                  
@@ -238,7 +285,7 @@
                         </thead>
                        
                         <tbody>
-                          <tr *ngFor="let session of sessions">
+                          <tr *ngFor="let session of sessions; let i = index">
                             <td>
                               {{session.name}}
                             </td>
@@ -249,7 +296,7 @@
                               {{session.date}}
                             </td>
                             <td class="text-center">
-                                <button class="btn btn-danger">delete</button>
+                                <button (click)="delete_session(session.id, i)" class="btn btn-danger">delete</button>
                             </td>
                           </tr>
                      

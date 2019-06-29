@@ -16,7 +16,7 @@ export class UserCheckinService {
   }
   public getAllSessions() {
    
-    return this.http.get(this.apiUrl+'session/filter_Sessions');
+    return this.http.get(this.apiUrl+'session/filter');
   }
 
   public checkInUserManually(sessionId,users){
