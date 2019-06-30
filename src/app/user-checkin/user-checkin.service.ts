@@ -32,4 +32,7 @@ export class UserCheckinService {
   public addUser(user){
     return this.http.post(this.apiUrl+'user/create',user);
   }
+  public getQrCode(code){
+    return this.http.get(this.apiUrl+'');
+  }
 }

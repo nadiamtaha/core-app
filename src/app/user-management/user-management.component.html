@@ -15,9 +15,9 @@
                     <label  for="inlineFormCustomSelect">Sessions</label>
                    
                     <select name="session" (change)="onSessionChange($event.target.value)" class="custom-select w-15 ml-2" id="inlineFormCustomSelect">                   
-                      <option  *ngFor="let session of sessions" [value]="session.id">{{session.name}}</option>
-                      
-                    </select>
+                        <option  *ngFor="let session of sessions" [value]="session.id">{{session.name}}</option>
+                        
+                      </select>
                 </form>
                  <div *ngIf="users.data&&users.data.length>0" class="table-responsive">
                    <table class="table table-bordered table-striped mb-0">
@@ -30,8 +30,11 @@
                            Phone
                          </th>
                          <th>
-                           Email
-                         </th>
+                          Email
+                        </th>
+                        <th>
+                          qr code
+                        </th>
                          <th>
                            
                          </th>
@@ -48,6 +51,11 @@
                             </td>
                             <td>
                               {{user.profile.email}}
+                            </td>
+                            <td>
+                             <div *ngIf="user.qr_code_path">
+                              <a [href]="baseForImage+user.qr_code_path" target="_blank"><img class="qrcode" src="assets/images/qr.svg"/></a>  
+                             </div> 
                             </td>
                             <td class="text-center">
                               <button (click)="deleteUser(user.id)" class="btn btn-danger">delete</button>
@@ -111,6 +119,29 @@
                     </div>
                    
                   </form>
+                </div>
+              
+              <div class="bg-cover"></div>
+            </div>
+            
+      </div>
+      <!-- <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="close()">OK</button>
+      </div> -->
+  </ng-template>
+  <ng-template #qrContent let-close="close">
+      <div class="modal-header">
+        <h3 class="modal-title">Add User</h3>
+        <button type="button" class="close" (click)="close()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <div class="d-flex justify-content-center align-items-center h-100">
+             
+                <div class="card-body">
+                  
+                  <img  [src] = "baseForImage+user.qr_code_path" />
                 </div>
               
               <div class="bg-cover"></div>
