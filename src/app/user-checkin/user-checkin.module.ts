@@ -6,6 +6,7 @@ import {  NgbProgressbarModule,NgbTabsetModule,NgbAccordionModule, NgbPagination
 
 
 
+import { UserCheckin } from './user-checkin.component';
 import { UserCheckinRoutes } from './user-checkin.routing';
 import { FormsModule ,ReactiveFormsModule} from '@angular/forms';
 
@@ -22,6 +23,6 @@ import { FormsModule ,ReactiveFormsModule} from '@angular/forms';
     FormsModule,
     ReactiveFormsModule
   ],
-  declarations: []
+  declarations: [UserCheckin]
 })
 export class UserCheckinModule {}
