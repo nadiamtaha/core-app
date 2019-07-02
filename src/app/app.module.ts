@@ -4,7 +4,6 @@ import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
-import { QrCodeAllModule } from 'ngx-qrcode-all';
 
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -49,7 +48,6 @@ export function createTranslateLoader(http: HttpClient) {
   ],
   imports: [
     BrowserModule,
-    QrCodeAllModule,
     BrowserAnimationsModule,
     RouterModule.forRoot(AppRoutes),
     FormsModule,

@@ -7,7 +7,6 @@ import {  NgbProgressbarModule,NgbTabsetModule,NgbAccordionModule, NgbPagination
 import { QrCodeAllModule } from 'ngx-qrcode-all';
 
 
-import { UserCheckin } from './user-checkin.component';
 import { UserCheckinRoutes } from './user-checkin.routing';
 import { FormsModule ,ReactiveFormsModule} from '@angular/forms';
 
@@ -24,6 +23,6 @@ import { FormsModule ,ReactiveFormsModule} from '@angular/forms';
     FormsModule,
     ReactiveFormsModule
   ],
-  declarations: [UserCheckin]
+  declarations: []
 })
 export class UserCheckinModule {}
