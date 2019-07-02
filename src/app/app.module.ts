@@ -35,7 +35,6 @@ export function createTranslateLoader(http: HttpClient) {
 
 @NgModule({
   declarations: [
-    QrCodeAllModule,
     AppComponent,
     MenuComponent,
     HeaderComponent,
@@ -50,6 +49,7 @@ export function createTranslateLoader(http: HttpClient) {
   ],
   imports: [
     BrowserModule,
+    QrCodeAllModule,
     BrowserAnimationsModule,
     RouterModule.forRoot(AppRoutes),
     FormsModule,
