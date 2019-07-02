@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 // import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import {  NgbProgressbarModule,NgbTabsetModule,NgbAccordionModule, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 
+import { QrCodeAllModule } from 'ngx-qrcode-all';
 
 
 import { UserCheckin } from './user-checkin.component';
@@ -14,7 +15,7 @@ import { FormsModule ,ReactiveFormsModule} from '@angular/forms';
   imports: [
     CommonModule,
     //ZXingScannerModule,
-    
+    QrCodeAllModule,
     RouterModule.forChild(UserCheckinRoutes),
     NgbAccordionModule,
     NgbProgressbarModule,
