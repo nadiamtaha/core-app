@@ -23,7 +23,7 @@ export interface Menu {
 const MENUITEMS = [
 
   {
-    state: '/',
+    state: 'viewMap',
     name: 'VIEWMAP',
     type: 'link',
     icon: 'ion-ios-speedometer'
@@ -46,13 +46,38 @@ const MENUITEMS = [
     type: 'link',
     icon: 'ion-ios-help'
   },
+  {
+    state: 'requests',
+    name: 'Requests',
+    type: 'link',
+    icon: 'ion-ios-help'
+  },
   
   
 ];
 
 @Injectable()
 export class MenuService {
+  currentUser;
+
   getAll(): Menu[] {
     return MENUITEMS;
+  }
+  showItem(state){
+    //alert(test)
+    if(localStorage.getItem('currentUser')){
+      this.currentUser=JSON.parse(localStorage.getItem('currentUser'));
+      if(this.currentUser.country=="KSA"||(this.currentUser.country=="EG"&&state!="requests"))
+      {
+          return true
+      }
+      // else if(this.currentUser.country=="EG")
+      // {
+      //   if(state!="requests")
+      //      return true
+      // }
+    }
+   
+      
   }
 }

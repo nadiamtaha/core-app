@@ -2,14 +2,31 @@ import { Routes } from '@angular/router';
 
 import { AdminLayoutComponent } from './core';
 import { AuthLayoutComponent } from './core';
+import { AuthGuard } from './_services/auth.guard';
 
 export const AppRoutes: Routes = [
   {
     path: '',
-    component: AdminLayoutComponent,
+    component: AuthLayoutComponent,
     children: [
       {
         path: '',
+        loadChildren: './account/account.module#AccountModule'
+      },
+      
+      {
+        path: 'error',
+        loadChildren: './error/error.module#ErrorModule'
+      }
+    ]
+  },
+  {
+    path: '',
+    component: AdminLayoutComponent,
+    canActivate:[AuthGuard],
+    children: [
+      {
+        path: 'viewMap',
         loadChildren: './dashboard/dashboard.module#DashboardModule'
       },
       {
@@ -23,6 +40,10 @@ export const AppRoutes: Routes = [
       {
         path: 'settings',
         loadChildren: './settings/settings.module#SettingsModule'
+      },
+      {
+        path: 'requests',
+        loadChildren: './requests/requests.module#RequestsModule'
       },
       // {
       //   path: 'maps',

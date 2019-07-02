@@ -33,7 +33,6 @@ export class SettingsComponent implements OnInit {
     this.modal.open(this.modalContent, { size: 'lg' });
   }
   handleEvent2(event): void { 
-    console.log(event)  ;
     this.modal.open(this.modalContent2, { size: 'lg' });
   }
 

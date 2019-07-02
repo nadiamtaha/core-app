@@ -8,7 +8,7 @@ import { TranslateService } from '@ngx-translate/core';
   template: `
   <ul class="navigation" appAccordion>
     <div *ngFor="let menuitem of menuService.getAll()">
-      <li class="navigation-item" appAccordionLink group="{{menuitem.state}}" *ngIf="menuitem.type !== 'divider' || menuitem.type !== 'title'">
+      <li class="navigation-item" appAccordionLink group="{{menuitem.state}}" *ngIf=" menuService.showItem(menuitem.state)">
         <a class="navigation-link" appAccordionToggle [routerLink]="['/', menuitem.state]" *ngIf="menuitem.type === 'link'">
           <i class="icon {{ menuitem.icon }} mr-3"></i>
           <span class="title mr-auto">{{ menuitem.name | translate }}</span>

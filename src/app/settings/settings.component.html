@@ -97,7 +97,8 @@
                       <select type="text" class="form-control" [formControl]="form.controls['trainer_id']"
                         [ngClass]="{'form-control-danger': form.controls['trainer_id'].hasError('required') && form.controls['trainer_id'].touched}" >
                          <option value = "" disabled>Select trainer</option>
-                         <option [value]="trainer.profile.id" *ngFor="let trainer of trainers">{{trainer.profile.name}}</option>
+                         <option 
+                          *ngFor="let trainer of trainers">{{trainer.profile.name}}</option>
                       </select>
                   
                   </fieldset>
@@ -242,13 +243,13 @@
                    
                     <tbody>
                       <tr *ngFor="let trainer of trainers; let i = index">
-                        <td>
+                        <td *ngIf="trainer.profile">
                           {{trainer.profile.name}}
                         </td>
-                        <td>
+                        <td *ngIf="trainer.profile">
                           {{trainer.profile.dob}}
                         </td>
-                        <td class="text-center">
+                        <td *ngIf="trainer.profile" class="text-center">
                             <button class="btn btn-danger" (click)="delete_trainer(trainer.profile.id, i)">delete</button>
                         </td>
                       </tr>

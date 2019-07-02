@@ -1,0 +1,149 @@
+<div class="row">
+  <div class="col-md-12">
+     <div class="card">
+
+     
+            
+             <div class="card">
+                <div class="card-header">
+                  <h2>Requests List</h2>
+                </div>
+               
+                 <div *ngIf="requests&&requests.length>0" class="table-responsive">
+                   <table class="table table-bordered table-striped mb-0">
+                     <thead>
+                       <tr>
+                         <th>
+                           Client Name
+                         </th>
+                         <th>
+                           Package Name
+                         </th>
+                         <th>
+                          Day
+                        </th>
+                        <th>
+                          Time
+                        </th>
+                         <th>
+                           Trainer
+                         </th>
+                         <th></th>
+                       </tr>
+                     </thead>
+                    
+                     <tbody>
+                       <tr *ngFor="let req of requests">
+                          <td>
+                              {{req.client.profile.first_name }} {{req.client.profile.last_name}}
+                            </td>
+                            <td>
+                              {{req.package.name }}
+                            </td>
+                            <td>
+                              {{req.day}}
+                            </td>
+                            <td>
+                              {{req.time}}
+                            </td>
+                           <td>
+                            {{req.trainer.profile.name }}
+                           </td>
+                            <td class="text-center">
+
+           <select class="form-control" 
+              (change)="onStatusChange($event.target.value,req.id)">
+              <option>Select</option>
+    
+              <option *ngFor="let status of statusList"
+                [value]="status.name">{{status.name}}
+              </option>
+            </select>
+                                      </td>
+                       </tr>
+                  
+                     </tbody>
+                   </table>
+                   
+                 </div>
+                 <div class="no-data" *ngIf="requests&&requests.length==0">
+                    There Is No Data To Show
+                  </div>
+             </div>
+            
+    
+   </div>
+  </div>
+  <ng-template #modalContent let-close="close">
+      <div class="modal-header">
+        <h3 class="modal-title">Add User</h3>
+        <button type="button" class="close" (click)="close()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <div class="d-flex justify-content-center align-items-center h-100">
+             
+                <div class="card-body">
+                  
+                  <form class="w-75 m-auto" [formGroup]="userForm" (ngSubmit)="onSubmit()">
+                    <fieldset class="form-group mb-4" [ngClass]="{'has-danger': userForm.controls['first_name'].hasError('required') && userForm.controls['first_name'].touched}">
+                      <input type="text" class="form-control" placeholder="Enter your name" [formControl]="userForm.controls['first_name']"
+                        [ngClass]="{'form-control-danger': userForm.controls['first_name'].hasError('required') && userForm.controls['first_name'].touched}" />
+                      <div class="invalid-feedback" *ngIf="userForm.controls['first_name'].hasError('required') && userForm.controls['first_name'].touched">Username
+                        is required.</div>
+                    </fieldset>
+                    <fieldset class="form-group mb-4" [ngClass]="{'has-danger': userForm.controls['email'].hasError('pattern') && userForm.controls['email'].touched}">
+                  
+                      <input type="email" class="form-control" placeholder="Enter your email" [formControl]="userForm.controls['email']"
+                        [ngClass]="{'form-control-danger': userForm.controls['email'].hasError('required') && userForm.controls['email'].touched}" />
+                      <!-- <div class="invalid-feedback" *ngIf="userForm.controls['email'].hasError('required') && userForm.controls['email'].touched">Mail
+                        is required.</div> -->
+                    </fieldset>
+                    <fieldset class="form-group mb-4" [ngClass]="{'has-danger': userForm.controls['mobile'].hasError('required') && userForm.controls['mobile'].touched}">
+                        <input type="email" class="form-control" placeholder="Enter your phone" [formControl]="userForm.controls['mobile']"
+                          [ngClass]="{'form-control-danger': userForm.controls['mobile'].hasError('required') && userForm.controls['mobile'].touched}" />
+                        <div class="invalid-feedback" *ngIf="userForm.controls['mobile'].hasError('required') && userForm.controls['mobile'].touched">Phone
+                          is required.</div>
+                      </fieldset>
+                    <div class="modal-footer d-flex justify-content-center">
+                      <button  class="btn custom-btn px-3" type="submit" [disabled]="!userForm.valid">
+                         Add user
+                      </button>
+                    </div>
+                   
+                  </form>
+                </div>
+              
+              <div class="bg-cover"></div>
+            </div>
+            
+      </div>
+      <!-- <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="close()">OK</button>
+      </div> -->
+  </ng-template>
+  <ng-template #qrContent let-close="close">
+      <div class="modal-header">
+        <h3 class="modal-title">Add User</h3>
+        <button type="button" class="close" (click)="close()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <div class="d-flex justify-content-center align-items-center h-100">
+             
+                <div class="card-body">
+                  
+                  <img  [src] = "baseForImage+user.qr_code_path" />
+                </div>
+              
+              <div class="bg-cover"></div>
+            </div>
+            
+      </div>
+      <!-- <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="close()">OK</button>
+      </div> -->
+  </ng-template>
+</div>
