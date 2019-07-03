@@ -11,9 +11,11 @@ export class RequestsComponent implements OnInit {
   statusList=[
     {
         name:'Approve',
+        is_approved:1
     },
     {
       name:'Deny',
+      is_approved:0
     }
   ]
   constructor(public _RequestsService:RequestsService) { }
@@ -24,9 +26,8 @@ export class RequestsComponent implements OnInit {
     else 
       isApproved=0; 
     this._RequestsService.respondRequest(id,isApproved).subscribe(
-      (requests) => {
-        this.requests = requests;
-        console.log(this.requests)
+      () => {
+        this.loadData();
       }
     );
   }

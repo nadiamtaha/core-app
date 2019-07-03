@@ -30,8 +30,7 @@ chart-grid: rgba(black, 0.05),
   @include theme($winter-theme-background, $winter-theme-foreground);
 
   .bg-cover {
-    background-image: url(../../assets/images/running-runner-long-distance-fitness-40751.jpeg);
-    background-size: 100% 100%
+    background-image: url(../../assets/images/bg.png);
   }
 }
 

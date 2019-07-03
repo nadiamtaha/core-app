@@ -52,10 +52,12 @@
                             <td class="text-center">
 
            <select class="form-control" 
-              (change)="onStatusChange($event.target.value,req.id)">
-              <option>Select</option>
+              (change)="onStatusChange($event.target.value,req.id)"
+              >
+              <option disabled>select</option>
     
-              <option *ngFor="let status of statusList"
+              <option [selected]="status.is_approved == req.is_approved"
+               *ngFor="let status of statusList"
                 [value]="status.name">{{status.name}}
               </option>
             </select>

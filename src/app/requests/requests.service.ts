@@ -15,7 +15,7 @@ export class RequestsService {
   }
  
   public respondRequest(reqId,isApproved){
-    return this.http.put(this.apiUrl+'request/respond',{'request_id':reqId,'is_approved':isApproved});
+    return this.http.put(this.apiUrl+'package/request/respond',{'request_id':reqId,'is_approved':isApproved});
   }
  
 }
