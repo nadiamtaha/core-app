@@ -12,112 +12,73 @@ export class UserCheckin {
   sessions:any=[];
   checkedUserIds=[];
   checkedUsers=[];
+  packages:any=[];
+  selectedPackageId;
   qrResultString:string;
   selectedSessionId:number;
   page:number=1;
+  currentUser;
   pageSize:number=7;
+  country;
   constructor(public _UserCheckinService:UserCheckinService) {
-  
+    if(localStorage.getItem('currentUser')){
+      this.currentUser=JSON.parse(localStorage.getItem('currentUser'));
+      if(this.currentUser.country=="KSA")
+         this.country=this.currentUser.country
+      
+  }
   }
 
   loadPageData(page?){
      page ? this.loadData(page) : this.loadData();
   }
   loadSessions(){
-    // this.sessions=[
-    //   {
-    //     "id": 6,
-    //     "name": "zomba",
-    //     "capacity": 20,
-    //     "location_id": 1,
-    //     "trainer_id": 1,
-    //     "status": "active",
-    //     "created_at": "2019-06-02 13:15:40",
-    //     "updated_at": "2019-06-02 13:15:40",
-    //     "category_id": 1,
-    //     "duration": 2,
-    //     "date": "Saturday",
-    //     "description": null,
-    //     "gear": null,
-    //     "time": null,
-    //     "fitness_level": "Beginner",
-    //     "flag": 1
-    //   },
-    //   {
-    //     "id": 7,
-    //     "name": "sha3by",
-    //     "capacity": 20,
-    //     "location_id": 1,
-    //     "trainer_id": 1,
-    //     "status": "active",
-    //     "created_at": "2019-06-03 09:33:45",
-    //     "updated_at": "2019-06-03 09:33:45",
-    //     "category_id": 1,
-    //     "duration": 2,
-    //     "date": "Saturday",
-    //     "description": null,
-    //     "gear": null,
-    //     "time": null,
-    //     "fitness_level": "Beginner",
-    //     "flag": 1
-    //   },
-    //   {
-    //     "id": 8,
-    //     "name": "shaasddas3by",
-    //     "capacity": 20,
-    //     "location_id": 1,
-    //     "trainer_id": 7,
-    //     "status": "active",
-    //     "created_at": "2019-06-03 12:36:38",
-    //     "updated_at": "2019-06-03 12:36:38",
-    //     "category_id": 1,
-    //     "duration": 2,
-    //     "date": "Saturday",
-    //     "description": null,
-    //     "gear": null,
-    //     "time": null,
-    //     "fitness_level": "Beginner",
-    //     "flag": 1
-    //   },
-    //   {
-    //     "id": 9,
-    //     "name": "sha3by",
-    //     "capacity": 20,
-    //     "location_id": 1,
-    //     "trainer_id": 7,
-    //     "status": "active",
-    //     "created_at": "2019-06-03 12:36:47",
-    //     "updated_at": "2019-06-03 12:36:47",
-    //     "category_id": 1,
-    //     "duration": 2,
-    //     "date": "Saturday",
-    //     "description": null,
-    //     "gear": null,
-    //     "time": null,
-    //     "fitness_level": "Beginner",
-    //     "flag": 0
-    //   }
-    // ]
-    // this.selectedSessionId=this.sessions[0].id;  //default selection
-    // this.loadData(undefined,this.sessions[0].id)
-    this._UserCheckinService.getAllSessions().subscribe(
-      (sessions) => {
-        this.sessions = sessions;
-        this.selectedSessionId=this.sessions[0].id;
-        console.log(this.sessions)
-      },
-      (error) => console.log(error),
-      ()=>{this.loadData(undefined,this.sessions[0].id);}
-    );
+   
+    if(!this.country)
+    {
+      this._UserCheckinService.getAllSessions().subscribe(
+        (sessions) => {
+          this.sessions = sessions;
+          this.selectedSessionId=this.sessions[0].id;
+          console.log(this.sessions)
+        },
+        (error) => console.log(error),
+        ()=>{this.loadData(undefined,this.sessions[0].id);}
+      );
+    }
+    else{
+      this._UserCheckinService.getAllPackages().subscribe(
+        (packages) => {
+          this.packages = packages;
+          this.selectedPackageId=this.packages[0].id;
+          console.log(this.packages)
+        },
+        (error) => console.log(error),
+        ()=>{this.loadData(undefined,this.packages[0].id);}
+      );
+    }
+    
   }
   loadData(page?,sessionId?){
+    if(!this.country){
+      this._UserCheckinService.getAllUsers(page,sessionId).subscribe(
+        (users) => {
+          let usersArr=users as any;
+        this.users = usersArr.data;
+        console.log(this.users)
+        }
+      );
+    }
+    else{
+      this._UserCheckinService.getPackageUsers(this.selectedPackageId).subscribe(
+        (users) => {
+          let usersArr=users as any;
+          this.users = usersArr.client;
+          console.log(this.users)
+        }
+      );
+    }
     
-    this._UserCheckinService.getAllUsers(page,sessionId).subscribe(
-      (users) => {
-        this.users = users;
-        console.log(this.users.data)
-      }
-    );
   }
   scanQrCode(event){
     this.qrResultString = event
@@ -126,6 +87,11 @@ export class UserCheckin {
     this.checkedUsers=[];
     this.selectedSessionId=sessionId;
     this.loadData(undefined,sessionId)
+  }
+  onPackageChange(packId){
+    this.checkedUsers=[];
+    this.selectedPackageId=packId;
+    this.loadData(undefined,packId)
   }
   addUserId(e,user) {
     e.target.checked ? user.checked=true : user.checked=false;
@@ -136,7 +102,7 @@ export class UserCheckin {
     // else{
     //   user.checked=false
     // }
-    this.checkedUsers = this.users.data.filter(function(user) {
+    this.checkedUsers = this.users.filter(function(user) {
       return user.checked ==true;
     });
     
@@ -150,13 +116,24 @@ export class UserCheckin {
      console.log("notify here and not call el api")
    }
    else{
-    
-     //call api
-     this._UserCheckinService.checkInUserManually(this.selectedSessionId,this.checkedUserIds).subscribe(
+    if(!this.country)
+    {
+      //call api
+      this._UserCheckinService.checkInUserManually(this.selectedSessionId,this.checkedUserIds).subscribe(
       (test) => {      
         console.log(test)
       }
-    );
+      );
+    }
+    else{
+        //call api
+        this._UserCheckinService.checkInKsaUserManually(this.selectedPackageId,this.checkedUserIds).subscribe(
+          (test) => {      
+            console.log(test)
+          }
+          );
+    }
+    
      
    }
   }

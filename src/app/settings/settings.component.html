@@ -58,7 +58,9 @@
 </div> -->
 <ng-template #modalContent let-close="close">
     <div class="modal-header">
-      <h3 class="modal-title">Add Session</h3>
+      <h3 *ngIf="!country" class="modal-title">Add Session</h3>
+      <h3 *ngIf="country" class="modal-title">Add Package</h3>
+
       <button type="button" class="close" (click)="close()">
         <span aria-hidden="true">&times;</span>
       </button>
@@ -103,7 +105,9 @@
                   
                   </fieldset>
                   <div class="modal-footer d-flex justify-content-center">
-                    <button class="btn custom-btn px-3" (click)="onSubmitSession(form)" type="submit" [disabled]="!form.valid">Add session</button>
+                    <button *ngIf="!country" class="btn custom-btn px-3" (click)="onSubmitSession(form)" type="submit" [disabled]="!form.valid">Add session</button>
+                    <button *ngIf="country" class="btn custom-btn px-3" (click)="onSubmitSession(form)" type="submit" [disabled]="!form.valid">Add session</button>
+
                   </div>
                  
                 </form>
@@ -135,7 +139,7 @@
                 
                 </fieldset>
                 <fieldset class="form-group mb-4" [ngClass]="{'has-danger': form1.controls['dob'].hasError('required') && form1.controls['dob'].touched}">
-                    <input type="text" class="form-control" placeholder="Enter Date of birth" [formControl]="form1.controls['dob']"
+                    <input type="date" class="form-control" placeholder="Enter Date of birth" [formControl]="form1.controls['dob']"
                       [ngClass]="{'form-control-danger': form1.controls['dob'].hasError('required') && form1.controls['dob'].touched}" />
                 
                 </fieldset>
@@ -250,7 +254,7 @@
                           {{trainer.profile.dob}}
                         </td>
                         <td *ngIf="trainer.profile" class="text-center">
-                            <button class="btn btn-danger" (click)="delete_trainer(trainer.profile.id, i)">delete</button>
+                            <button class="btn btn-danger" (click)="delete_trainer(trainer.id, i)">delete</button>
                         </td>
                       </tr>
                  
@@ -260,7 +264,7 @@
            </div>
          </ng-template>
        </ngb-tab>
-       <ngb-tab title="Sessions">
+       <ngb-tab *ngIf="!country" title="Sessions">
         <ng-template ngbTabContent>
             <div class="card">
                   <div class="add-btn-container">
@@ -311,6 +315,57 @@
 
         </ng-template>
       </ngb-tab>
+      <ngb-tab *ngIf="country" title="Packages">
+          <ng-template ngbTabContent>
+              <div class="card">
+                    <div class="add-btn-container">
+                      <button class="btn custom-btn my-3" (click)="handleEvent($event.event)">ADD</button>
+                    </div>
+                    <div *ngIf="packages&&packages.length>0" class="table-responsive">
+                        <table class="table table-bordered table-striped mb-0">
+                          <thead>
+                            <tr>
+                              <th>
+                                Name
+                              </th>
+                              <th>
+                                Number of sessions
+                              </th>
+                              <th>
+                                Time
+                              </th>
+                              <th>
+                                
+                              </th>
+                            </tr>
+                          </thead>
+                         
+                          <tbody>
+                            <tr *ngFor="let package of packages; let i = index">
+                              <td>
+                                {{package.name}}
+                              </td>
+                              <td>
+                                {{package.sessions}}
+                              </td>
+                              <td>
+                                {{package.start_time}}
+                              </td>
+                              <td class="text-center">
+                                  <button (click)="delete_package(package.id, i)" class="btn btn-danger">delete</button>
+                              </td>
+                            </tr>
+                       
+                          </tbody>
+                        </table>
+                    </div>
+                    <div class="no-data" *ngIf="packages&&packages.length==0">
+                        There Is No Data To Show
+                    </div>
+              </div>
+  
+          </ng-template>
+        </ngb-tab>
      </ngb-tabset>
    </div>
   </div>

@@ -4,13 +4,13 @@
       <img class="reap-logo " src="../../../assets/images/Core-logo.svg" alt="">
       <form [formGroup]="form" class="mt-4" (ngSubmit)="onSubmit()">
         <fieldset class="form-group mb-4" [ngClass]="{'has-danger': form.controls['code'].hasError('required') && form.controls['code'].touched}">
-          <input type="text" class="form-control" placeholder="code" [formControl]="form.controls['code']"
+          <input type="text" class="form-control code-input" placeholder="code" [formControl]="form.controls['code']"
             [ngClass]="{'form-control-danger': form.controls['code'].hasError('required') && form.controls['code'].touched}" />
           <div class="invalid-feedback" *ngIf="form.controls['code'].hasError('required') && form.controls['code'].touched">Username
             is required.</div>
         </fieldset>
         <fieldset class="form-group mb-4" [ngClass]="{'has-danger': form.controls['password'].hasError('required') && form.controls['password'].touched}">
-          <input type="password" class="form-control" placeholder="********" [formControl]="form.controls['password']"
+          <input type="password" class="form-control pass-input" placeholder="********" [formControl]="form.controls['password']"
             [ngClass]="{'form-control-danger': form.controls['password'].hasError('required') && form.controls['password'].touched}" />
           <div class="invalid-feedback" *ngIf="form.controls['password'].hasError('required') && form.controls['password'].touched">Password
             is required.</div>

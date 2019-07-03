@@ -10,8 +10,8 @@ export class MapService {
   apiUrl = environment.apiUrl
   constructor(private http:HttpClient) { }
   
-  public getAllMapMarkers() {
-    return this.http.get(this.apiUrl+'user/locations');
+  public getAllMapMarkers(country?) {
+    return this.http.get(this.apiUrl+'user/locations',{params : {'country':country} });
   }
 
 }

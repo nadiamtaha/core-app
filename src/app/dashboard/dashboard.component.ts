@@ -8,15 +8,28 @@ import { MapService } from './map.service';
 })
 export class DashboardComponent implements OnInit {
   constructor(private _mapService: MapService) { }
+  currentUser;
+  country;
   markers:object=[];
   ngOnInit() {
-    this._mapService.getAllMapMarkers().subscribe(
-      (markers) => {
-        this.markers = markers;
-       
-        console.log(this.markers)
-      }
-    );
+    if(localStorage.getItem('currentUser')){
+        this.currentUser=JSON.parse(localStorage.getItem('currentUser'));
+        if(this.currentUser.country=="KSA")
+           this.country=this.currentUser.country
+        
+    }
+    this.getMapInfo(this.country);
+    
+  }
+
+  getMapInfo(country){
+    this._mapService.getAllMapMarkers(country).subscribe(
+        (markers) => {
+          this.markers = markers;
+         
+          console.log(this.markers)
+        }
+      );
   }
 
   lat: number = 31.205753  ;

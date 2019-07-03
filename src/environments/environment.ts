@@ -6,5 +6,5 @@
 export const environment = {
   production: false,
    // URL of development API
-   apiUrl: 'http://104.248.142.220:81/api/'
+   apiUrl: 'https://core.fit:81/api/'
 };

@@ -19,14 +19,24 @@ export class SettingsComponent implements OnInit {
   public form: FormGroup;
   public form1: FormGroup;
   sessions:any=[];
+  packages:any=[];
   trainers = []
   locations = []
+  currentUser;
+  country;
   @ViewChild('modalContent')
   modalContent: TemplateRef<any>;
   @ViewChild('modalContent2')
   modalContent2: TemplateRef<any>;
   constructor(private modal: NgbModal,private fb: FormBuilder,public _UserCheckinService:UserCheckinService,
-              private settings_service: SettingsService) { }
+              private settings_service: SettingsService) { 
+                if(localStorage.getItem('currentUser')){
+                  this.currentUser=JSON.parse(localStorage.getItem('currentUser'));
+                  if(this.currentUser.country=="KSA")
+                     this.country=this.currentUser.country
+                  
+                }
+              }
 
   handleEvent(event): void { 
     console.log(event)  ;
@@ -41,6 +51,15 @@ export class SettingsComponent implements OnInit {
       (sessions) => {
         this.sessions = sessions; 
         console.log("el sessions",this.sessions)
+      },
+      (error) => console.log(error),
+      ()=>{}
+    );
+  }
+  loadAllPackages(){
+    this._UserCheckinService.getAllPackages().subscribe(
+      (packages) => {
+        this.packages = packages;
       },
       (error) => console.log(error),
       ()=>{}
@@ -64,28 +83,60 @@ export class SettingsComponent implements OnInit {
        
     });
   }
+  delete_package(pack_id, index){
+        
+    this.packages.splice(index, 1);
+
+    this.settings_service.delete_package(pack_id).subscribe((data: any) => {
+       console.log(data);
+       
+    });
+  }
   onSubmit(form){
     console.log(form.value)
+    form.value.type="trainer";
+    if(this.country)
+      form.value.country="KSA";
+      //this.form.value.package_id=this.selectedPackageId;
     this.settings_service.add_trainer(form.value).subscribe((data:any)=>{
       console.log(data)
     })
   }
   onSubmitSession(form){
-    this.settings_service.add_session(form.value).subscribe((data:any)=>{
-      console.log("session added", data)
-    })
+    if(!this.country)
+    {
+      this.settings_service.add_session(form.value).subscribe((data:any)=>{
+        console.log("session added", data)
+      })
+    }
+    else
+    {
+      this.settings_service.add_package(form.value).subscribe((data:any)=>{
+        console.log("package added", data)
+      })
+    }
   }
   ngOnInit() {
-    this.settings_service.get_trainers().subscribe((data:any)=>{
-      console.log(data);
-      this.trainers = data.data;
-    })
+    if(!this.country){
+      this.settings_service.get_trainers().subscribe((data:any)=>{
+        console.log(data);
+        this.trainers = data.data;
+      })
+    }
+    else
+      this.settings_service.get_ksa_trainers(this.country).subscribe((data:any)=>{
+        console.log(data);
+        this.trainers = data;
+      })
     this.settings_service.get_locations().subscribe((data:any)=>{
       console.log("locations",data);
 
       this.locations = data;
     })
+    if(!this.country)
     this.loadAllSessions();
+    else
+    this.loadAllPackages();
     this.form = this.fb.group({
       name: [null, Validators.compose([Validators.required])],
       location_id: ["", Validators.compose([Validators.required])],

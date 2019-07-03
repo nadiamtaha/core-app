@@ -14,15 +14,25 @@ export class UserCheckinService {
   
     return this.http.get(this.apiUrl+'user/index', {params : {'page':pageNumber,'session_id':sessionId} });
   }
+  public getPackageUsers(packageId){
+    return this.http.get(this.apiUrl+'package/find_with_clients', {params : {'package_id':packageId} });
+
+  }
   public getAllSessions() {
    
     return this.http.get(this.apiUrl+'session/filter');
   }
 
+  public getAllPackages(){
+    return this.http.get(this.apiUrl+'package/filter');
+
+  }
   public checkInUserManually(sessionId,users){
     return this.http.put(this.apiUrl+'user/attend',{'session_id':sessionId,'users':users});
   }
-  
+  public checkInKsaUserManually(packageId,users){
+     return this.http.post(this.apiUrl+'package/attend',{'package_id':packageId,'user_ids':users});
+  }
   public checkInUserbyScan(sessionId,code){
     return this.http.put(this.apiUrl+'user/attend',{'session_id':sessionId,'code':code});
   }
