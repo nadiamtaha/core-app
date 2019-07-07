@@ -16,7 +16,7 @@ import { UserCheckinService } from '../user-checkin/user-checkin.service';
 })
 export class UserManagementComponent implements OnInit {
   public userForm: FormGroup;
-  baseForImage="http://165.22.94.5:81/"
+  baseForImage="http://188.166.80.241:81/"
   users:any=[];
   sessions:any=[];
   packages:any=[];
